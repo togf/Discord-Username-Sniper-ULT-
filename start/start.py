@@ -114,6 +114,9 @@ def main():
      {Fore.LIGHTCYAN_EX}2-{Fore.LIGHTBLACK_EX}[{Fore.YELLOW}Check a specific list{Fore.LIGHTBLACK_EX}]{Ly}
      {Fore.LIGHTCYAN_EX}3-{Fore.LIGHTBLACK_EX}[{Fore.YELLOW}Generate 4 letters with vowel replacement and check{Fore.LIGHTBLACK_EX}]{Ly}
      {Fore.LIGHTCYAN_EX}4-{Fore.LIGHTBLACK_EX}[{Fore.YELLOW}Generate 5 letters with vowel replacement and check{Fore.LIGHTBLACK_EX}]{Ly}
+     {Fore.LIGHTCYAN_EX}5-{Fore.LIGHTBLACK_EX}[{Fore.YELLOW}Generate VCVC and check{Fore.LIGHTBLACK_EX}]{Ly}
+     {Fore.LIGHTCYAN_EX}6-{Fore.LIGHTBLACK_EX}[{Fore.YELLOW}Generate CVCV and check{Fore.LIGHTBLACK_EX}]{Ly}
+     {Fore.LIGHTCYAN_EX}7-{Fore.LIGHTBLACK_EX}[{Fore.YELLOW}Generate 4l dupes and check{Fore.LIGHTBLACK_EX}]{Ly}
 
       Discord Username checker.
     ════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
@@ -150,6 +153,15 @@ def proc0():
         elif m_input=="4":
            setdelay()
            opt4load()
+        elif m_input=="5":
+           setdelay()
+           opt5load()
+        elif m_input=="6":
+           setdelay()
+           opt6load()
+        elif m_input=="7":
+           setdelay()
+           opt7load()
         else:
             proc0()
 def validate_names(opt,usernames):
@@ -186,7 +198,7 @@ def validate_names(opt,usernames):
                   print(f"{Lb}[-]{Fore.RED} '{username}' taken.")
            else:
                print(f"{Lb}[?]{Fore.RED} Error validating '{username}': {endpoint.json()['message']} |Support: Make sure you have a valid token.")
-       elif opt == 1 or opt == 3 or opt == 4:
+       elif opt == 1 or opt == 3 or opt == 4 or opt == 5 or opt == 6 or opt == 7:
            body = {
                "username": usernames
            }
@@ -317,6 +329,61 @@ def opt4load():
         except ValueError:
             print(f"{Lb}[!]{Fore.RED} Error: You must enter a valid integer.")
             opt4load()
+
+def opt5load():
+    vowels = 'aeiou'
+    consonants = ''.join([c for c in string.ascii_lowercase if c not in vowels])
+    count = input(f"{Lb}[{Ly}How many VCVC usernames to generate{Lb}]:> ")
+    try:
+        count = int(count)
+        for _ in range(count):
+            # Generate VCVC pattern
+            name = random.choice(vowels) + random.choice(consonants) + random.choice(vowels) + random.choice(consonants)
+            validate_names(5, name)
+            time.sleep(Delay)
+        checkavail()
+        print(f"\n{Lb}[=]{Fore.LIGHTGREEN_EX} Done. {Ly}{len(available_usernames)}{Fore.LIGHTGREEN_EX} Available usernames, are saved in the following file: '{av_list}' .")
+        exit()
+    except ValueError:
+        print(f"{Lb}[!]{Fore.RED} Error: You must enter a valid integer.")
+        opt5load()
+
+def opt6load():
+    vowels = 'aeiou'
+    consonants = ''.join([c for c in string.ascii_lowercase if c not in vowels])
+    count = input(f"{Lb}[{Ly}How many CVCV usernames to generate{Lb}]:> ")
+    try:
+        count = int(count)
+        for _ in range(count):
+            # Generate CVCV pattern
+            name = random.choice(consonants) + random.choice(vowels) + random.choice(consonants) + random.choice(vowels)
+            validate_names(6, name)
+            time.sleep(Delay)
+        checkavail()
+        print(f"\n{Lb}[=]{Fore.LIGHTGREEN_EX} Done. {Ly}{len(available_usernames)}{Fore.LIGHTGREEN_EX} Available usernames, are saved in the following file: '{av_list}' .")
+        exit()
+    except ValueError:
+        print(f"{Lb}[!]{Fore.RED} Error: You must enter a valid integer.")
+        opt6load()
+
+def opt7load():
+    count = input(f"{Lb}[{Ly}How many 4l dupe usernames (XYXY) to generate{Lb}]:> ")
+    try:
+        count = int(count)
+        for _ in range(count):
+            # Generate XYXY: X and Y are any lowercase letter, X != Y is allowed
+            X = random.choice(string.ascii_lowercase)
+            Y = random.choice(string.ascii_lowercase)
+            name = X + Y + X + Y
+            validate_names(7, name)
+            time.sleep(Delay)
+        checkavail()
+        print(f"\n{Lb}[=]{Fore.LIGHTGREEN_EX} Done. {Ly}{len(available_usernames)}{Fore.LIGHTGREEN_EX} Available usernames, are saved in the following file: '{av_list}' .")
+        exit()
+    except ValueError:
+        print(f"{Lb}[!]{Fore.RED} Error: You must enter a valid integer.")
+        opt7load()
+
 def save(content:string):
        with open(av_list, "a") as file:
             file.write(f"\n{content}")
@@ -340,7 +407,7 @@ def ch_send_webhook(val0:str):
             "icon_url": "https://images-ext-1.discordapp.net/external/myIlmuBbhV4o7e5mFoqAFRhZ3Gv2yhdVjUnAYgapsMo/%3Fsize%3D4096/https/cdn.discordapp.com/icons/1348389033801158738/b416ff71837dcaf94ea225e2769cbc16.png"
           },
           "thumbnail": {
-            "url": "https://images-ext-1.discordapp.net/external/myIlmuBbhV4o7e5mFoqAFRhZ3Gv2yhdVjUnAYgapsMo/%3Fsize%3D4096/https/cdn.discordapp.com/icons/1348389033801158738/b416ff71837dcaf94ea225e2769cbc16.png"
+            "url": ""
           },
           "fields": [],
           "color": 16777215
